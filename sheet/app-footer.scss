@@ -1,0 +1,36 @@
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3.2292vh;
+  flex: none;
+  .btn {
+    width: 24.2593vw;
+    height: 6.3542vh;
+    line-height: 6.3542vh;
+    text-align: center;
+    background: #f6eeeb;
+    border: 1px solid #a45439;
+    font-size: 2.6042vh;
+    color: #a45439;
+    box-sizing: border-box;
+  }
+  .prev {
+    border-top-right-radius: 3.2031vh;
+    border-bottom-right-radius: 3.2031vh;
+  }
+  .next {
+    border-top-left-radius: 3.2031vh;
+    border-bottom-left-radius: 3.2031vh;
+  }
+  .btn:active {
+    border-color: #a45439;
+    background: #f8ede9;
+    box-shadow: 0 0 0.5208vh 0 #a45439;
+  }
+  .btn:focus,
+  .btn.hover {
+    border-color: #a45439;
+    background: #f8ede9;
+    box-shadow: 0 0 0.5208vh 0 #a45439;
+  }
+}

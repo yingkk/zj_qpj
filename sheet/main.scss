@@ -1,0 +1,300 @@
+#main {
+  width: 100%;
+  height: 100%;
+}
+.step1 {
+  padding: 0 8.0208vw;
+  padding-bottom: 8.3333vh;
+
+  .title {
+    display: inline-block;
+    font-size: 3.125vh;
+    color: #333333;
+    text-align: center;
+    margin-top: 3.9063vh;
+  }
+
+  .card {
+    width: 49.6296vw;
+    margin: 3.2292vh 0 2.8646vh;
+  }
+
+  .input {
+    width: 71.4815vw;
+    border: unset;
+    outline: none;
+    padding: 1.1979vh 7.2222vw;
+    font-size: 3.125vh;
+    border-radius: 1.0417vh;
+    box-shadow: 0 0 0.5729vh 0 #bbbbbb;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .tip {
+    display: inline-block;
+    font-size: 2.0833vh;
+    color: #333333;
+    text-align: center;
+    margin-top: 3.75vh;
+  }
+
+  .number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3.75vh;
+
+    .btn {
+      width: 3.75vh;
+      height: 3.75vh;
+      border-radius: 50%;
+      background: #a45439;
+      border: 1px solid #a45439;
+      outline: none;
+      user-select: none;
+    }
+    .plus {
+      width: 3.75vh;
+      height: 3.75vh;
+      border-radius: 50%;
+      background-image: url("../imgs/plus.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      user-select: none;
+      outline: none;
+    }
+
+    .minus {
+      width: 3.75vh;
+      height: 3.75vh;
+      border-radius: 50%;
+      background-image: url("../imgs/minus.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      user-select: none;
+      outline: none;
+    }
+
+    .num {
+      width: 12.963vw;
+      height: 3.75vh;
+      line-height: 3.6458vh;
+      font-size: 3.125vh;
+      text-align: center;
+      border-radius: 1.875vh;
+      padding: 0 1.8519vw;
+      margin: 0 2.7778vw;
+      border: 1px solid #e6b2af;
+      box-sizing: border-box;
+      color: #000;
+    }
+  }
+}
+
+.step2 {
+  .title {
+    margin-top: 8.125vh;
+    font-size: 3.125vh;
+    color: #333333;
+    text-align: center;
+  }
+
+  .input-wrap {
+    width: 71.4815vw;
+    margin-top: 4.8438vh;
+    position: relative;
+    span {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -3.825vh;
+      font-size: 2.0833vh;
+      color: red;
+      display: none;
+    }
+  }
+  .phone-err {
+    input {
+      box-shadow: 0 0 0.5729vh 0 red;
+    }
+    span {
+      display: block;
+    }
+  }
+
+  .input {
+    width: 71.4815vw;
+    border: unset;
+    outline: none;
+    padding: 1.1979vh 7.2222vw;
+    font-size: 3.125vh;
+    border-radius: 1.0417vh;
+    box-shadow: 0 0 0.5729vh 0 #bbbbbb;
+    box-sizing: border-box;
+    margin-top: 4.8438vh;
+    text-align: center;
+    display: block;
+  }
+
+
+  .option-wrap {
+    width: 100%;
+    background-color: #dadada;
+    margin: 5.7292vh 0 4.7917vh;
+    display: flex;
+    justify-content: center;
+    padding: 3.3333vh 0;
+  }
+
+  ul {
+    width: 68.037vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      margin-right: 6.0185vw;
+      flex: none;
+      width: 11.8148vw;
+      height: 11.8148vw;
+      line-height: 11.8148vw;
+      background: #fff;
+      border: 0.1563vh solid #ffffff;
+      box-shadow: 0 0 0.4688vh 0 rgba(84, 83, 83, 0.5);
+      border-radius: 0.4167vh;
+      margin-bottom: 3.2396vh;
+      font-size: 4.6875vh;
+      color: #484848;
+      text-align: center;
+      position: relative;
+    }
+    .del::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 8.8889vw;
+      height: 3.6458vh;
+      margin-left: -4.4444vw;
+      margin-top: -1.8229vh;
+      background-image: url("../imgs/del.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    li:last-child {
+      border-color: #a45439;
+      background: #a45439;
+      font-size: 2.0833vh;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    li:nth-child(4n) {
+      margin-right: 0;
+    }
+
+    li:nth-child(9) {
+      margin-bottom: 0;
+    }
+
+    li:nth-child(10) {
+      margin-bottom: 0;
+    }
+
+    li:nth-child(11) {
+      margin-bottom: 0;
+    }
+
+    li:nth-child(12) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.step3 {
+  padding: 0 8.0208vw;
+  .tip {
+    margin-top: 7.3958vh;
+    display: flex;
+    align-items: center;
+    .img {
+      margin-right: 3.0556vw;
+    }
+    .title {
+      font-size: 4.6875vh;
+      color: #a45439;
+      text-align: center;
+    }
+  }
+  .info {
+    display: block;
+    margin-top: 1.9792vh;
+    font-size: 2.0833vh;
+    color: #333333;
+    text-align: center;
+    line-height: 4.6354vh;
+    font-weight: 600;
+  }
+  .visit-info {
+    width: 71.4815vw;
+    height: 31.875vh;
+    margin-top: 3.5417vh;
+    box-shadow: 0 0 0.5729vh 0 #a3a3a3;
+    border-radius: 1.0417vh;
+    background: #fff;
+    .visit {
+      height: 25.1042vh;
+      background: #f2f2f2;
+      font-weight: 600;
+      .title {
+        display: block;
+        font-size: 2.6042vh;
+        color: #333333;
+        text-align: center;
+        padding-top: 3.4375vh;
+        box-sizing: border-box;
+      }
+      .time {
+        display: block;
+        font-size: 6.7708vh;
+        color: #333333;
+        text-align: center;
+        line-height: 7.8125vh;
+        margin-top: 1.5625vh;
+        font-weight: 500;
+      }
+      .date {
+        display: block;
+        font-size: 2.6042vh;
+        color: #333333;
+        text-align: center;
+        margin-top: 1.5625vh;
+      }
+    }
+    .visit-num {
+      display: block;
+      font-size: 2.0833vh;
+      color: #333333;
+      text-align: center;
+      line-height: 5.7292vh;
+      text-align: center;
+      font-weight: 600;
+    }
+  }
+  .btn {
+    width: 40vw;
+    height: 6.4062vh;
+    line-height: 6.4062vh;
+    margin-top: 7.9167vh;
+    background: #f6eeeb;
+    border: 1px solid #a45439;
+    border-radius: 3.2031vh;
+    font-size: 2.8646vh;
+    color: #a45439;
+    text-align: center;
+    cursor: pointer;
+  }
+}
