@@ -2,7 +2,7 @@ new Vue({
   el: "#main",
   data: function () {
     return {
-      idCardNum: "32010219980421332X",
+      idCardNum: "150303195208078984",
       cardInfo: null,
       phoneNum: "",
       count: 0,
@@ -11,15 +11,15 @@ new Vue({
       times: null,
       successData: null,
       errMsg: "",
-      isPhoneErr: false
+      isPhoneErr: false,
+      isLoading: false,
+      state: null
     };
   },
   mounted: function () {
     this.times = setInterval(this.handleReadCardInfo, 500);
   },
-  created: function () {
-
-  },
+  created: function () {},
   methods: {
     handlePrev: function () {
       this.step = this.step - 1;
@@ -34,12 +34,16 @@ new Vue({
       }
       this.step = this.step + 1;
       if (this.step === 3) {
+        this.isLoading = true;
         saveAppointInfo(
           this.cardInfo,
           function (data) {
-            this.successData = data;
+            this.isLoading = false;
+            this.successData = data.data;
+            this.state = data.state;
           },
           function (errMsg) {
+            this.isLoading = false;
             this.errMsg = errMsg;
           }
         );
@@ -61,22 +65,23 @@ new Vue({
       //     cardNum: CardInfoOrigin.CardNo,
       //   };
       //   this.idCardNum = CardInfoOrigin.CardNo;
-      //   clearInterval(this.times);
+      // clearInterval(this.times)
 
       // test
       this.cardInfo = {
         name: "张三",
-        idCard: "32010219980421332X",
+        idCard: "150303195208078984",
         childNum: this.count,
-        phone: this.phoneNum
+        phone: this.phoneNum,
       };
+
     },
     handleClick: function (e) {
-      if (e.target.tagName !== 'LI') return;
+      if (e.target.tagName !== "LI") return;
       const val = e.target.dataset.value;
       const optionsMap = {
         DELETE: this.deleteNumber,
-        SURE: this.sureNmber,
+        SURE: this.sureNumber,
       };
       optionsMap[val] && optionsMap[val]();
       optionsMap[val] || this.addNumber(val);
@@ -95,10 +100,10 @@ new Vue({
       return /^1[0-9]{10}$/.test(str);
     },
     showErrorInfo() {
-      this.isPhoneErr = true
+      this.isPhoneErr = true;
       // this.phoneNum = "";
     },
-    sureNmber() {
+    sureNumber() {
       if (!this.isPhoneNumber(this.phoneNum)) {
         this.showErrorInfo();
         return;

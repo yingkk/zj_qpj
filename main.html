@@ -61,21 +61,25 @@
                     </ul>
                 </div>
             </div>
-            <div class="main step3" v-if="step === 3">
+            <div class="main step3" v-if="step === 3 " v-loading="isLoading">
                 <div class="tip">
                     <div class="img">
-                        <img src="../imgs/success.png">
+                        <img v-if="state === 5" src="../imgs/success.png">
+                        <img v-else-if="state === 114" src="../imgs/warn.png">
+                        <img v-else src="../imgs/success.png">
                     </div>
-                    <span class="title">预约成功！</span>
+                    <span class="title" v-if="state === 5">预约成功</span>
+                    <span class="title" v-else-if="state === 114">重复预约</span>
+                    <span class="title" v-else>预约失败</span>
                 </div>
-                <span class="info">身份证 320102199XXXX1332X</span>
-                <div class="visit-info">
+                <span class="info" v-if="state === 5 || state === 114">身份证 {{ successData.idCard }}</span>
+                <div class="visit-info" v-if="state === 5 || state === 114">
                     <div class="visit">
                         <span class="title">- 参观时段 -</span>
-                        <span class="time">13:00-15:00</span>
-                        <span class="date">2021-08-31</span>
+                        <span class="time">{{ successData.musInterval }}</span>
+                        <span class="date">{{ successData.visitDate }}</span>
                     </div>
-                    <span class="visit-num">参观人数：1成人 2儿童</span>
+                    <span class="visit-num">参观人数：1成人 {{ childNum }}儿童</span>
                 </div>
                 <div class="btn" @click="handleOver">完成</div>
             </div>
