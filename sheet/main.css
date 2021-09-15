@@ -113,12 +113,12 @@
   transform: translateX(-50%);
   bottom: -3.825vh;
   font-size: 2.0833vh;
-  color: red;
+  color: #f56c6c;
   display: none;
 }
 
 .step2 .phone-err input {
-  box-shadow: 0 0 0.5729vh 0 red;
+  box-shadow: 0 0 0.5729vh 0 #f56c6c;
 }
 
 .step2 .phone-err span {
@@ -295,6 +295,15 @@
   line-height: 5.7292vh;
   text-align: center;
   font-weight: 600;
+}
+
+.step3 .visit-info .err {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #f56c6c;
+  height: 100%;
+  font-size: 3.125vh;
 }
 
 .step3 .btn {

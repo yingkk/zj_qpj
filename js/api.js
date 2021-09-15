@@ -12,16 +12,16 @@ axios.interceptors.response.use(
 );
 
 var instance = axios.create({
-  baseURL: "http://10.10.200.11:8080",
+  baseURL: "http://www.zj-museum.com.cn:7002/",
   timeout: 5000,
 });
 
 function post(url, payload = {}, onSucess, onError) {
   instance.post(url, payload).then(function (response) {
-    if (response.status === 200) {
+    if (response.status === 200 && (response.data.state === 114 || response.data.state === 0)) {
       onSucess(response.data);
     } else {
-      onError(response.message);
+      onError(response.data.message);
     }
   });
 }

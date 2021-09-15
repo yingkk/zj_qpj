@@ -2,7 +2,7 @@ new Vue({
   el: "#main",
   data: function () {
     return {
-      idCardNum: "150303195208078984",
+      idCardNum: "",
       cardInfo: null,
       phoneNum: "",
       count: 0,
@@ -32,21 +32,29 @@ new Vue({
       if (this.step === 2 && !this.phoneNum) {
         return;
       }
-      this.step = this.step + 1;
-      if (this.step === 3) {
+      const step = this.step + 1;
+      if (step === 3) {
+        var _this = this;
         this.isLoading = true;
         saveAppointInfo(
           this.cardInfo,
           function (data) {
-            this.isLoading = false;
-            this.successData = data.data;
-            this.state = data.state;
+            _this.isLoading = false;
+            _this.successData = data.data;
+            _this.state = +data.state;
+            _this.step = step;
+            setInterval(_this.handleSecondsMinus, 1000);
+           
           },
           function (errMsg) {
-            this.isLoading = false;
-            this.errMsg = errMsg;
+            _this.isLoading = false;
+            _this.errMsg = errMsg;
+            _this.step = step;
+            setInterval(_this.handleSecondsMinus, 1000);
           }
         );
+      } else {
+        this.step = step;
       }
     },
     handleMinus: function () {
@@ -56,25 +64,26 @@ new Vue({
       this.count = this.count === 3 ? this.count : this.count + 1;
     },
     handleReadCardInfo: function () {
-      // const CardInfoOrigin = document.getElementById("idCard");
-      // const result = CardInfoOrigin.ReadCard();
-      // if (result === "0") {
-      //   this.cardInfo = {
-      //     name: CardInfoOrigin.Name,
-      //     sex: CardInfoOrigin.Sex,
-      //     cardNum: CardInfoOrigin.CardNo,
-      //   };
-      //   this.idCardNum = CardInfoOrigin.CardNo;
-      // clearInterval(this.times)
-
-      // test
-      this.cardInfo = {
-        name: "张三",
-        idCard: "150303195208078984",
-        childNum: this.count,
-        phone: this.phoneNum,
-      };
-
+      const CardInfoOrigin = document.getElementById("idCard");
+      const result = CardInfoOrigin.ReadCard();
+      if (result === "0") {
+        this.cardInfo = {
+          name: CardInfoOrigin.Name,
+          idCard: CardInfoOrigin.CardNo,
+          phone: this.phoneNum,
+          childNum: this.count
+        };
+        this.idCardNum = CardInfoOrigin.CardNo;
+        clearInterval(this.times);
+      }
+     
+      // todo test
+      // this.cardInfo = {
+      //   name: "张三",
+      //   idCard: "15030319520807254X",
+      //   childNum: this.count,
+      //   phone: this.phoneNum
+      // };
     },
     handleClick: function (e) {
       if (e.target.tagName !== "LI") return;

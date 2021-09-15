@@ -2,91 +2,97 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./sheet/common.css">
-    <link rel="stylesheet" href="./sheet/main.css">
-    <link rel="stylesheet" href="./sheet/app-header.css">
-    <link rel="stylesheet" href="./sheet/app-footer.css">
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <script src="./lib/jquery/jquery-1.11.0.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <script src="./components/header.js"></script>
-    <script src="./components/footer.js"></script>
-    <script src="./js/api.js"></script>
-    <title>镇江博物馆</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./sheet/common.css" />
+  <link rel="stylesheet" href="./sheet/main.css" />
+  <link rel="stylesheet" href="./sheet/app-header.css" />
+  <link rel="stylesheet" href="./sheet/app-footer.css" />
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+  <script src="./lib/jquery/jquery-1.11.0.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="./components/header.js"></script>
+  <script src="./components/footer.js"></script>
+  <script src="./js/api.js"></script>
+  <title>镇江博物馆</title>
 </head>
 
 <body>
-    <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7" id="idCard" name="idCard" hidden></OBJECT>
-    <div id="main">
-        <div class="container">
-            <app-header></app-header>
-            <div class="main step1" v-if="step === 1">
-                <span class="title">请刷您的二代身份证</span>
-                <div class="card">
-                    <img src="../imgs/idCard.png">
-                </div>
-                <input type="text" class="input" v-model="idCardNum">
-                <span class="tip">添加携同的未成年儿童</span>
-                <div class="number">
-                    <button class="btn minus" @click="handleMinus"></button>
-                    <div class="num">{{count}}</div>
-                    <button class="btn plus" @click="handlePlus"></button>
-                </div>
-            </div>
-            <div class="main step2" v-if="step === 2">
-                <span class="title">请输入您手机号</span>
-                <div :class="['input-wrap', isPhoneErr? 'phone-err': '']">
-                    <input type="text" class="input" v-model="phoneNum" readonly>
-                    <span>请输入正确的手机号</span>
-                </div>
-                <div class="option-wrap">
-                    <ul @click="handleClick">
-                        <li data-value="1">1</li>
-                        <li data-value="2">2</li>
-                        <li data-value="3">3</li>
-                        <li data-value="4">4</li>
-                        <li data-value="5">5</li>
-                        <li data-value="6">6</li>
-                        <li data-value="7">7</li>
-                        <li data-value="8">8</li>
-                        <li data-value="9">9</li>
-                        <li data-value="0">0</li>
-                        <li class="del" data-value="DELETE"></li>
-                        <li data-value="SURE">确定</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="main step3" v-if="step === 3 " v-loading="isLoading">
-                <div class="tip">
-                    <div class="img">
-                        <img v-if="state === 5" src="../imgs/success.png">
-                        <img v-else-if="state === 114" src="../imgs/warn.png">
-                        <img v-else src="../imgs/success.png">
-                    </div>
-                    <span class="title" v-if="state === 5">预约成功</span>
-                    <span class="title" v-else-if="state === 114">重复预约</span>
-                    <span class="title" v-else>预约失败</span>
-                </div>
-                <span class="info" v-if="state === 5 || state === 114">身份证 {{ successData.idCard }}</span>
-                <div class="visit-info" v-if="state === 5 || state === 114">
-                    <div class="visit">
-                        <span class="title">- 参观时段 -</span>
-                        <span class="time">{{ successData.musInterval }}</span>
-                        <span class="date">{{ successData.visitDate }}</span>
-                    </div>
-                    <span class="visit-num">参观人数：1成人 {{ childNum }}儿童</span>
-                </div>
-                <div class="btn" @click="handleOver">完成</div>
-            </div>
-            <app-footer @prev="handlePrev" @next="handleNext" v-if="step === 1 || step ===2"></app-footer>
+  <object classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7" id="idCard" name="idCard" hidden></object>
+  <div id="main">
+    <div class="container">
+      <app-header></app-header>
+      <div class="main step1" v-if="step === 1">
+        <span class="title">请刷您的二代身份证</span>
+        <div class="card">
+          <img src="../imgs/idCard.png" />
         </div>
+        <input type="text" class="input" v-model="idCardNum" readonly/>
+        <span class="tip">添加携同的未成年儿童</span>
+        <div class="number">
+          <button class="btn minus" @click="handleMinus"></button>
+          <div class="num">{{count}}</div>
+          <button class="btn plus" @click="handlePlus"></button>
+        </div>
+      </div>
+      <div class="main step2" v-if="step === 2">
+        <span class="title">请输入您手机号</span>
+        <div :class="['input-wrap', isPhoneErr? 'phone-err': '']">
+          <input type="text" class="input" v-model="phoneNum" readonly />
+          <span>请输入正确的手机号</span>
+        </div>
+        <div class="option-wrap">
+          <ul @click="handleClick">
+            <li data-value="1">1</li>
+            <li data-value="2">2</li>
+            <li data-value="3">3</li>
+            <li data-value="4">4</li>
+            <li data-value="5">5</li>
+            <li data-value="6">6</li>
+            <li data-value="7">7</li>
+            <li data-value="8">8</li>
+            <li data-value="9">9</li>
+            <li data-value="0">0</li>
+            <li class="del" data-value="DELETE"></li>
+            <li data-value="SURE">确定</li>
+          </ul>
+        </div>
+      </div>
+      <div class="main step3" v-if="step === 3" v-loading="isLoading" element-loading-text="信息查询中，请稍后"
+        element-loading-background="rgba(255, 255, 255)">
+        <div class="tip">
+          <div class="img">
+            <img v-if="state === 0" src="../imgs/success.png" />
+            <img v-else-if="state === 114" src="../imgs/warn.png" />
+            <img v-else src="../imgs/success.png" />
+          </div>
+          <span class="title" v-if="state === 0">预约成功</span>
+          <span class="title" v-else-if="state === 114">重复预约</span>
+          <span class="title" v-else>预约失败</span>
+        </div>
+        <span class="info" v-if="state === 0 || state === 114">身份证 {{ successData.idCard }}</span>
+        <div class="visit-info" v-if="state === 0 || state === 114">
+          <div class="visit">
+            <span class="title">- 参观时段 -</span>
+            <span class="time">{{ successData.musInterval }}</span>
+            <span class="date">{{ successData.visitDate }}</span>
+          </div>
+          <span class="visit-num">参观人数：1成人 {{ successData.childNum }}儿童</span>
+        </div>
+        <div class="visit-info" v-else>
+          <span class="err">
+            {{ errMsg }} 
+          </span>
+        </div>
+        <div class="btn" @click="handleOver">完成</div>
+      </div>
+      <app-footer @prev="handlePrev" @next="handleNext" v-if="step === 1 || step === 2"></app-footer>
     </div>
-    <script src="./js/main.js"></script>
+  </div>
+  <script src="./js/main.js"></script>
 </body>
 
 </html>
