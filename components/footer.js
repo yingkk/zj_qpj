@@ -1,8 +1,8 @@
 Vue.component("app-footer", {
-  template: ` <div class="app-footer">
-                    <div class="btn prev" @click="handlePrev">返回</div>
-                    <div class="btn next"  @click="handleNext">下一步</div>
-                </div>`,
+  template: '<div class="app-footer">\
+                   <div class="btn prev" @click="handlePrev">返回</div>\
+                    <div class="btn next"  @click="handleNext">下一步</div>\
+                </div>',
   data: function () {
     return {};
   },

@@ -299,6 +299,7 @@
 
 .step3 .visit-info .err {
   display: flex;
+  justify-content: center;
   align-items: center;
   text-align: center;
   color: #f56c6c;
@@ -318,4 +319,14 @@
   color: #a45439;
   text-align: center;
   cursor: pointer;
+}
+
+.el-message {
+  min-width: 46.2963vw !important;
+  font-size: 2.6042vh !important;
+  padding: 1.0417vh 1.8519vw 1.0417vh 2.7778vw !important;
+}
+
+.el-message__content {
+  font-size: 2.6042vh !important;
 }

@@ -28,7 +28,7 @@
       <div class="main step1" v-if="step === 1">
         <span class="title">请刷您的二代身份证</span>
         <div class="card">
-          <img src="../imgs/idCard.png" />
+          <img src="./imgs/idCard.png" />
         </div>
         <input type="text" class="input" v-model="idCardNum" readonly/>
         <span class="tip">添加携同的未成年儿童</span>
@@ -65,9 +65,9 @@
         element-loading-background="rgba(255, 255, 255)">
         <div class="tip">
           <div class="img">
-            <img v-if="state === 0" src="../imgs/success.png" />
-            <img v-else-if="state === 114" src="../imgs/warn.png" />
-            <img v-else src="../imgs/success.png" />
+            <img v-if="state === 0" src="./imgs/success.png" />
+            <img v-else-if="state === 114" src="./imgs/warn.png" />
+            <img v-else src="./imgs/success.png" />
           </div>
           <span class="title" v-if="state === 0">预约成功</span>
           <span class="title" v-else-if="state === 114">重复预约</span>

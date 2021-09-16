@@ -13,17 +13,36 @@ new Vue({
       errMsg: "",
       isPhoneErr: false,
       isLoading: false,
-      state: null
+      state: null,
+      loop: 5,
     };
   },
-  mounted: function () {
-    this.times = setInterval(this.handleReadCardInfo, 500);
+  created: function () {
+    // 读卡器连接
+    this.connect();
   },
-  created: function () {},
   methods: {
+    connect: function () {
+      var _this = this;
+      createConnect(
+        function (res) {
+          _this.times = setInterval(_this.handleReadCardInfo, 2000);
+        },
+        function (err) {
+          if (_this.loop > 0) {
+            _this.connect();
+            --_this.loop;
+          } else {
+            console.log(err);
+            _this.loop = 5;
+            _this.$message.error(err);
+          }
+        }
+      );
+    },
     handlePrev: function () {
       this.step = this.step - 1;
-      !this.step ? (window.location.href = "../index.html") : null;
+      !this.step ? (window.location.href = "./index.html") : null;
     },
     handleNext: function () {
       if (this.step === 1 && !this.idCardNum) {
@@ -32,24 +51,25 @@ new Vue({
       if (this.step === 2 && !this.phoneNum) {
         return;
       }
-      const step = this.step + 1;
+      var step = this.step + 1;
       if (step === 3) {
         var _this = this;
         this.isLoading = true;
+        this.cardInfo['phone'] = this.phoneNum;
+        this.cardInfo['childNum'] = this.count;
         saveAppointInfo(
           this.cardInfo,
           function (data) {
             _this.isLoading = false;
             _this.successData = data.data;
             _this.state = +data.state;
-            _this.step = step;
+            _this.step = step;
             setInterval(_this.handleSecondsMinus, 1000);
-           
           },
           function (errMsg) {
             _this.isLoading = false;
             _this.errMsg = errMsg;
-            _this.step = step;
+            _this.step = step;
             setInterval(_this.handleSecondsMinus, 1000);
           }
         );
@@ -64,55 +84,66 @@ new Vue({
       this.count = this.count === 3 ? this.count : this.count + 1;
     },
     handleReadCardInfo: function () {
-      const CardInfoOrigin = document.getElementById("idCard");
-      const result = CardInfoOrigin.ReadCard();
-      if (result === "0") {
-        this.cardInfo = {
-          name: CardInfoOrigin.Name,
-          idCard: CardInfoOrigin.CardNo,
-          phone: this.phoneNum,
-          childNum: this.count
-        };
-        this.idCardNum = CardInfoOrigin.CardNo;
-        clearInterval(this.times);
-      }
-     
+      var _this = this;
+      getCardInfo(
+        function (res) {
+          const originCardInfo = res.resultContent;
+          _this.cardInfo = {
+            name: originCardInfo.partyName,
+            idCard: originCardInfo.certNumber,
+          };
+          _this.idCardNum = originCardInfo.certNumber;
+          clearInterval(_this.times);
+          // 断开连接
+          disConnect(
+            function (res) {
+              console.log("disconnect success");
+            },
+            function (err) {
+              console.log("disconnect failed");
+            }
+          );
+        },
+        function (err) {
+          _this.$message.error("身份证信息读取失败！");
+        }
+      );
+
       // todo test
       // this.cardInfo = {
       //   name: "张三",
-      //   idCard: "15030319520807254X",
-      //   childNum: this.count,
-      //   phone: this.phoneNum
+      //   idCard: "15030319520807254X"
       // };
+      // clearInterval(this.times);
     },
     handleClick: function (e) {
       if (e.target.tagName !== "LI") return;
-      const val = e.target.dataset.value;
-      const optionsMap = {
+      var val = e.target.dataset.value;
+      var optionsMap = {
         DELETE: this.deleteNumber,
         SURE: this.sureNumber,
       };
       optionsMap[val] && optionsMap[val]();
       optionsMap[val] || this.addNumber(val);
     },
-    addNumber(val) {
+    addNumber: function (val) {
       this.isPhoneErr = false;
       if (this.phoneNum.length === 11) return;
       this.phoneNum += val;
     },
-    deleteNumber() {
+    deleteNumber: function () {
       this.isPhoneErr = false;
       this.phoneNum = this.phoneNum.replace(/\d{1}$/, "");
     },
-    isPhoneNumber(str) {
+    isPhoneNumber: function (str) {
       // /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
       return /^1[0-9]{10}$/.test(str);
     },
-    showErrorInfo() {
+    showErrorInfo: function () {
       this.isPhoneErr = true;
       // this.phoneNum = "";
     },
-    sureNumber() {
+    sureNumber: function () {
       if (!this.isPhoneNumber(this.phoneNum)) {
         this.showErrorInfo();
         return;
@@ -120,9 +151,9 @@ new Vue({
       this.handleNext();
     },
     handleOver: function () {
-      window.location.href = "../index.html";
+      window.location.href = "./index.html";
     },
-    handleSecondsMinus() {
+    handleSecondsMinus: function () {
       if (!this.seconds) {
         this.handleOver();
         return;
